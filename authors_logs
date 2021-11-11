@@ -1,0 +1,29 @@
+10-11-2021 -> Project Created. Inital Reseach Done. (all useless)
+11-11-2021 -> Multiple Liner Regression isnt the best way forward. Recommendation Systems to be reseached. Need a good library. 
+For the sake of initial simplicity I have decided to go ahead with KNN Model. Since we will be dealing only with likes, dislikes and not played; we get really "clean?" "definte?" data. We already have our matrix. 
+One thing i already think might work out elegantly is the fact that popular games will domiate the data and the good unknown gems that people have found will be sparse, but if we can find a correlation or function, perhaps an inverse of inherent popularity might get us the result we want -> finding a relativly unknown game i most likely will like playing. 
+So i have thought a decent bit about this. I think i need to go ahead with a very rudentry method of KNN. 
+Proposed AL v0.1 -
+  1. Dataset contains likes, dislikes and NaN for all elements 
+  2. User enters the X liked Y disliked elements
+  3. Dataset is limited to only to those entries where - (a AND b)
+    a. The same Y elements are disliked 
+      i. If none are matching, remove the least popular disliked element and try again. If nothing works - "BRUH" 
+      ii. Note that we should probably be more stringent about dislikes. 
+    b. The same X elements are liked 
+      i. If none are matching, remove the least popular disliked element and try again. If nothing works - "BRUH" 
+  4. On these limited dimensions, we perform "KNN" -
+    a. We aggrgate liked  (+1) and dislikes (-1) of the remaining elements, we also note frequency and varaince (here it implies likes to dislike ratio) [Social Media Analytics Knowlede comes in handy i guess]
+  5. Now we can showcase a few basic elements the user might not have tried - 
+    a. Most Popular Element - High Agg, High Freq and High L-D Ratio ( User most likely knows about this element and has avoided it on purpose -> Useless )
+    b. Most Unpopular Element - Low Agg, High Freq and Low L-D Ratio ( Inherently Useless )
+    c. Potential Cult Element - Med Agg, Med Freq and High L-D Ratio ( User might have heard about this element once or twice and forgotten about this. There is a good chance that the element might be something the user most likely will like -> Useful )
+    d. Potential Gem - Low Agg, Low Freq and High L-D Ratio ( User might have never heard of this element. Might be drastically differnt for them, but is the main point here. To get such elements into the light -> Useful ) 
+  6. Take feedback on the predicted element then - 
+    a. User tries out the element -> Job Done! 
+    b. User already likes it -> Go back to 3
+    c. User already dislikes it -> Go back to 3
+    d. User does not want to try it -> Show the next best set of elements from 5
+  7. If you run out of elements to showcase, state that to the user and showcase the current "Not so popular games" i guess. Not sure what to do here. 
+
+I also think the best way to get a response from the user is a "Tinder" like system where the first N swipes will be used to determine the general cluster of the user ( using most frequent on both specturm of the liked and disliked elements from the existing datasets ) before introducting the 3rd option of "Does not want to Try". Basically, be at step 2 for the first N swipes then go to step 6 ( which can always go to step 3 based on user input ) The tinder system will also help populate dataset with proper likes and dislikes.
